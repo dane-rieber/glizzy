@@ -11,6 +11,11 @@ ion-label {
 ion-item h2 {
   font-weight: 600;
   margin: 0;
+  padding-left: 10px;
+}
+
+ion-item h3 {
+  padding-left: 10px;
 }
 
 ion-item p {

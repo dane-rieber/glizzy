@@ -16,7 +16,7 @@ const GroceryListItem: React.FC<GroceryListItemProps> = ({ grocery }) => {
         <IonItem routerLink={`/grocery/${grocery.id}`} detail={false}>
             <IonLabel className="ion-text-wrap">
                 <h2>
-                    {grocery.quantity}: {grocery.name}
+                    [{grocery.quantity}] {grocery.name}
                     <span className="date">
                         <IonNote>${grocery.price} x {grocery.quantity}</IonNote>
                     </span>
