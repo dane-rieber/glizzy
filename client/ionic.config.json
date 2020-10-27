@@ -1,0 +1,7 @@
+{
+  "name": "Glizzy",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
