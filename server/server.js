@@ -19,7 +19,7 @@ var db = pgp(dbConfig);
 
 function sendError(err, res) {
     console.log("BRUH: ", err);
-    res.status(500).json({ status: 'Error', message: 'uh oh' });
+    res.status(500).json({ status: 'Error', message: 'uh oh, someone didnt implement good error handling (sorry)', error: err });
 }
 
 /*
@@ -28,7 +28,7 @@ AUTHORIZATION
 
 */
 
-var tokens = [];
+var tokens = []; // super secure token system (v1.0)
 
 app.post('/login', (req, res) => {
     var username = req.body.username;
@@ -38,20 +38,20 @@ app.post('/login', (req, res) => {
         .then(user => {
             var user_id = user.id;
 
-            if (user.password === password) {
-                var token = tokens.filter(t => t.user_id === user_id)[0];
+            if (user.password === password) { // If correct authentication is provided
+                var token = tokens.filter(t => t.user_id === user_id)[0]; // See if user already has token
 
                 if (!token) {
                     var new_token;
                     do {
-                        new_token = Math.random().toString().split('.')[1]
-                    } while (tokens.filter(t => t.auth_token === new_token).length)
+                        new_token = Math.random().toString().split('.')[1] // Generate random number as token
+                    } while (tokens.filter(t => t.auth_token === new_token).length) // Make sure no two tokens are the same
 
                     token = {
                         user_id: user_id,
                         token: new_token
                     };
-                    tokens.push(token);
+                    tokens.push(token); // Save token
                 }
 
                 res.status(200).json({ status: 'Authorized', auth_token: token.token });
@@ -63,7 +63,7 @@ app.post('/login', (req, res) => {
 })
 
 function get_token(req) {
-    var existing_token = tokens.filter(t => t.token === req.headers.authorization)[0];
+    var existing_token = tokens.filter(t => t.token === req.headers.authorization)[0]; // Find token from request
     return existing_token;
 }
 
@@ -81,9 +81,7 @@ app.get('/lists', (req, res) => {
     }
 
     db.any(`select * from list where user_id = ${token.user_id};`)
-        .then(rows => {
-            res.status(200).json(rows);
-        })
+        .then(rows => res.status(200).json(rows)) // return psql's json response
         .catch(err => sendError(err, res))
 })
 
@@ -108,7 +106,7 @@ app.get('/list/:id', (req, res) => {
             }
 
             db.any(`select * from grocery where list_id = ${list_id};`)
-                .then(groceries => res.status(200).json(groceries))
+                .then(groceries => res.status(200).json(groceries)) // return grocery list with provided id
                 .catch(err => sendError(err, res))
         })
         .catch(err => sendError(err, res))
@@ -133,6 +131,11 @@ app.post('/list/:id/add', (req, res) => {
                 res.status(401).json({ status: 'Unauthorized', message: 'List does not belong to user' });
                 return;
             }
+
+            /*
+            The following code builds a psql query depending on which parameters are specified in the request.
+            This way, not all paramaters need to be specified when creating a grocery object.
+            */
 
             var name = req.body.name;
             var quantity = req.body.quantity;
@@ -172,9 +175,7 @@ app.post('/list/:id/add', (req, res) => {
             queryValues += `,${list_id}`;
 
             db.one(`insert into grocery(${queryFields}) values (${queryValues}) returning id;`)
-                .then(id => {
-                    res.status(200).json({message: 'Grocery created', grocery_id: id})
-                })
+                .then(id => res.status(200).json({message: 'Grocery created', grocery_id: id})) // Returns id of created grocery
                 .catch(err => sendError(err, res))
         })
         .catch(err => sendError(err, res))
@@ -199,6 +200,7 @@ app.get('/grocery/:id', (req, res) => {
         return;
     }
 
+    // Check that the user accessing the grocery owns the list that contains the grocery
     db.one(`select user_id from list where id = (select list_id from grocery where id = ${grocery_id});`)
         .then(list => {
             if (list.user_id !== token.user_id) {
@@ -207,7 +209,7 @@ app.get('/grocery/:id', (req, res) => {
             }
 
             db.one(`select * from grocery where id = ${grocery_id};`)
-                .then(grocery => res.status(200).json(grocery))
+                .then(grocery => res.status(200).json(grocery)) // return psql response for grocery
                 .catch(err => sendError(err, res))
         })
         .catch(err => sendError(err, res))
@@ -219,6 +221,7 @@ STORE ENDPOINTS
 
 */
 
+// No authentication is needed to get list of stores since this is universal for all users
 app.get('/stores', (req, res) => {
     db.any('select * from store;')
         .then(stores => res.status(200).json(stores))
@@ -240,6 +243,7 @@ app.post('/create/user', (req, res) => {
         return;
     }
 
+    // Make sure username doesn't already exist
     db.any(`select id from glizzy_user where username = '${username}';`)
         .then(rows => {
             if (rows.length !== 0) {
@@ -248,9 +252,7 @@ app.post('/create/user', (req, res) => {
             }
             
             db.none(`insert into glizzy_user(username, password) values ('${username}', '${password}');`)
-                .then(() => {
-                    res.status(200).json({message: 'User created', username: username})
-                })
+                .then(() => res.status(200).json({message: 'User created', username: username})) // Returns username of newly created user
                 .catch(err => sendError(err, res))
         })
         .catch(err => sendError(err, res))
@@ -270,9 +272,7 @@ app.post('/create/list', (req, res) => {
     }
 
     db.one(`insert into list(name, user_id) values ('${name}', ${token.user_id}) returning id;`)
-        .then(id => {
-            res.status(200).json({message: 'List created', list_id: id})
-        })
+        .then(id => res.status(200).json({message: 'List created', list_id: id})) // returns id of newly created list
         .catch(err => sendError(err, res))
 })
 
