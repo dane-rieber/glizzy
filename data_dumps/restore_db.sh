@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo -u postgres psql glizzy < glizzy.pgsql
+sudo -u postgres psql < glizzy.sql

@@ -16,27 +16,29 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-ALTER TABLE ONLY public.store DROP CONSTRAINT store_pkey;
-ALTER TABLE ONLY public.list DROP CONSTRAINT list_pkey;
-ALTER TABLE ONLY public.grocery_store DROP CONSTRAINT grocery_store_pkey;
-ALTER TABLE ONLY public.grocery DROP CONSTRAINT grocery_pkey;
-ALTER TABLE ONLY public.glizzy_user DROP CONSTRAINT glizzy_user_username_key;
-ALTER TABLE ONLY public.glizzy_user DROP CONSTRAINT glizzy_user_pkey;
-ALTER TABLE public.store ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.list ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.grocery_store ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.grocery ALTER COLUMN id DROP DEFAULT;
-ALTER TABLE public.glizzy_user ALTER COLUMN id DROP DEFAULT;
-DROP SEQUENCE public.store_id_seq;
-DROP TABLE public.store;
-DROP SEQUENCE public.list_id_seq;
-DROP TABLE public.list;
-DROP SEQUENCE public.grocery_store_id_seq;
-DROP TABLE public.grocery_store;
-DROP SEQUENCE public.grocery_id_seq;
-DROP TABLE public.grocery;
-DROP SEQUENCE public.glizzy_user_id_seq;
-DROP TABLE public.glizzy_user;
+DROP DATABASE glizzy;
+--
+-- Name: glizzy; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE glizzy WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'C.UTF-8' LC_CTYPE = 'C.UTF-8';
+
+
+ALTER DATABASE glizzy OWNER TO postgres;
+
+\connect glizzy
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -116,16 +118,16 @@ ALTER SEQUENCE public.grocery_id_seq OWNED BY public.grocery.id;
 
 
 --
--- Name: grocery_store; Type: TABLE; Schema: public; Owner: postgres
+-- Name: store; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.grocery_store (
+CREATE TABLE public.store (
     id integer NOT NULL,
     name character varying(20) NOT NULL
 );
 
 
-ALTER TABLE public.grocery_store OWNER TO postgres;
+ALTER TABLE public.store OWNER TO postgres;
 
 --
 -- Name: grocery_store_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -146,7 +148,7 @@ ALTER TABLE public.grocery_store_id_seq OWNER TO postgres;
 -- Name: grocery_store_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.grocery_store_id_seq OWNED BY public.grocery_store.id;
+ALTER SEQUENCE public.grocery_store_id_seq OWNED BY public.store.id;
 
 
 --
@@ -185,40 +187,6 @@ ALTER SEQUENCE public.list_id_seq OWNED BY public.list.id;
 
 
 --
--- Name: store; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.store (
-    id integer NOT NULL,
-    name character varying(20)
-);
-
-
-ALTER TABLE public.store OWNER TO postgres;
-
---
--- Name: store_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.store_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.store_id_seq OWNER TO postgres;
-
---
--- Name: store_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.store_id_seq OWNED BY public.store.id;
-
-
---
 -- Name: glizzy_user id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -233,13 +201,6 @@ ALTER TABLE ONLY public.grocery ALTER COLUMN id SET DEFAULT nextval('public.groc
 
 
 --
--- Name: grocery_store id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.grocery_store ALTER COLUMN id SET DEFAULT nextval('public.grocery_store_id_seq'::regclass);
-
-
---
 -- Name: list id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -250,70 +211,66 @@ ALTER TABLE ONLY public.list ALTER COLUMN id SET DEFAULT nextval('public.list_id
 -- Name: store id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.store ALTER COLUMN id SET DEFAULT nextval('public.store_id_seq'::regclass);
+ALTER TABLE ONLY public.store ALTER COLUMN id SET DEFAULT nextval('public.grocery_store_id_seq'::regclass);
 
 
 --
 -- Data for Name: glizzy_user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.glizzy_user (id, username, password) FROM stdin;
-1	glizzygatherer	letmein
-\.
+INSERT INTO public.glizzy_user (id, username, password) VALUES (1, 'glizzygatherer', 'letmein');
+INSERT INTO public.glizzy_user (id, username, password) VALUES (2, 'dane', 'secret');
+INSERT INTO public.glizzy_user (id, username, password) VALUES (3, 'kevin', 'kevinrocks');
+INSERT INTO public.glizzy_user (id, username, password) VALUES (4, 'bruh27', 'password');
 
 
 --
 -- Data for Name: grocery; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.grocery (id, name, quantity, store_id, price, active, list_id) FROM stdin;
-1	Eggs	3	1	$3.99	t	1
-2	Bread	2	3	$4.99	t	1
-\.
-
-
---
--- Data for Name: grocery_store; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.grocery_store (id, name) FROM stdin;
-1	Target
-2	Walmart
-3	Safeway
-4	Whole Foods
-5	King Soopers
-\.
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (1, 'Eggs', 3, 1, '$3.99', true, 1);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (2, 'Bread', 2, 3, '$4.99', true, 1);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (3, 'Lawn Mower', 1, 2, '$1,200.00', true, 2);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (4, 'Eggs', 100, 4, '$0.99', true, 2);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (5, 'Frozen Corn Dogs', 1, 4, '$7.00', true, 2);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (6, 'White Claws', 2, 5, '$20.00', true, 2);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (7, 'White Claws', 200, 1, '$19.00', true, 6);
 
 
 --
 -- Data for Name: list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.list (id, name, user_id) FROM stdin;
-1	The First List	1
-\.
+INSERT INTO public.list (id, name, user_id) VALUES (1, 'The First List', 1);
+INSERT INTO public.list (id, name, user_id) VALUES (2, 'Danes List', 2);
+INSERT INTO public.list (id, name, user_id) VALUES (3, 'General List', 3);
+INSERT INTO public.list (id, name, user_id) VALUES (5, 'Danes Second List', 2);
+INSERT INTO public.list (id, name, user_id) VALUES (6, 'Test List', 4);
 
 
 --
 -- Data for Name: store; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.store (id, name) FROM stdin;
-\.
+INSERT INTO public.store (id, name) VALUES (1, 'Target');
+INSERT INTO public.store (id, name) VALUES (2, 'Walmart');
+INSERT INTO public.store (id, name) VALUES (3, 'Safeway');
+INSERT INTO public.store (id, name) VALUES (4, 'Whole Foods');
+INSERT INTO public.store (id, name) VALUES (5, 'King Soopers');
 
 
 --
 -- Name: glizzy_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.glizzy_user_id_seq', 1, true);
+SELECT pg_catalog.setval('public.glizzy_user_id_seq', 4, true);
 
 
 --
 -- Name: grocery_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.grocery_id_seq', 2, true);
+SELECT pg_catalog.setval('public.grocery_id_seq', 7, true);
 
 
 --
@@ -327,14 +284,7 @@ SELECT pg_catalog.setval('public.grocery_store_id_seq', 5, true);
 -- Name: list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.list_id_seq', 1, true);
-
-
---
--- Name: store_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.store_id_seq', 1, false);
+SELECT pg_catalog.setval('public.list_id_seq', 6, true);
 
 
 --
@@ -362,10 +312,10 @@ ALTER TABLE ONLY public.grocery
 
 
 --
--- Name: grocery_store grocery_store_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: store grocery_store_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.grocery_store
+ALTER TABLE ONLY public.store
     ADD CONSTRAINT grocery_store_pkey PRIMARY KEY (id);
 
 
@@ -378,11 +328,27 @@ ALTER TABLE ONLY public.list
 
 
 --
--- Name: store store_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: grocery fk_list_id_grocery; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.store
-    ADD CONSTRAINT store_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.grocery
+    ADD CONSTRAINT fk_list_id_grocery FOREIGN KEY (list_id) REFERENCES public.list(id);
+
+
+--
+-- Name: grocery fk_store_id_grocery; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.grocery
+    ADD CONSTRAINT fk_store_id_grocery FOREIGN KEY (store_id) REFERENCES public.store(id);
+
+
+--
+-- Name: list fk_user_id_list; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.list
+    ADD CONSTRAINT fk_user_id_list FOREIGN KEY (user_id) REFERENCES public.glizzy_user(id);
 
 
 --

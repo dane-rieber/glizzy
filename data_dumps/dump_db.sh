@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo -u postgres pg_dump -c -d glizzy > glizzy.pgsql
+sudo -u postgres pg_dump -c -C -F p --column-inserts --attribute-inserts -d glizzy > glizzy.sql
