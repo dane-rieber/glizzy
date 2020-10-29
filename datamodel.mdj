@@ -195,11 +195,11 @@
 										"$ref": "AAAAAAF1bDh0+q6rrMw="
 									},
 									"font": "Arial;13;1",
-									"left": 408,
+									"left": 400,
 									"top": 133,
 									"width": 169.17236328125,
 									"height": 13,
-									"text": "grocery_store"
+									"text": "store"
 								},
 								{
 									"_type": "ERDColumnCompartmentView",
@@ -221,7 +221,7 @@
 												"$ref": "AAAAAAF1bDiIOq6346o="
 											},
 											"font": "Arial;13;0",
-											"left": 413,
+											"left": 405,
 											"top": 156,
 											"width": 159.17236328125,
 											"height": 13
@@ -236,21 +236,21 @@
 												"$ref": "AAAAAAF1bDlteK6+Wo4="
 											},
 											"font": "Arial;13;0",
-											"left": 413,
+											"left": 405,
 											"top": 171,
 											"width": 159.17236328125,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 408,
+									"left": 400,
 									"top": 151,
 									"width": 169.17236328125,
 									"height": 38
 								}
 							],
 							"font": "Arial;13;0",
-							"left": 408,
+							"left": 400,
 							"top": 128,
 							"width": 169.17236328125,
 							"height": 61,
@@ -279,7 +279,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 357,
+									"left": 353,
 									"top": 172,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -296,7 +296,7 @@
 										"$ref": "AAAAAAF1bDmxbK7LujY="
 									},
 									"font": "Arial;13;0",
-									"left": 382,
+									"left": 374,
 									"top": 171,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -331,7 +331,7 @@
 								"$ref": "AAAAAAF1bDh0+q6rrMw="
 							},
 							"lineStyle": 2,
-							"points": "408:163;309:163",
+							"points": "400:163;309:163",
 							"nameLabel": {
 								"$ref": "AAAAAAF1bDmxbK7M6dI="
 							},
@@ -359,7 +359,7 @@
 										"$ref": "AAAAAAF1bDydu68SkV0="
 									},
 									"font": "Arial;13;1",
-									"left": 120,
+									"left": 112,
 									"top": 333,
 									"width": 198.05419921875,
 									"height": 13,
@@ -385,7 +385,7 @@
 												"$ref": "AAAAAAF1bDyoc68d5WA="
 											},
 											"font": "Arial;13;0",
-											"left": 125,
+											"left": 117,
 											"top": 356,
 											"width": 188.05419921875,
 											"height": 13
@@ -400,7 +400,7 @@
 												"$ref": "AAAAAAF1bDy2/K8kRkE="
 											},
 											"font": "Arial;13;0",
-											"left": 125,
+											"left": 117,
 											"top": 371,
 											"width": 188.05419921875,
 											"height": 13
@@ -415,21 +415,21 @@
 												"$ref": "AAAAAAF1bESpHK/nuls="
 											},
 											"font": "Arial;13;0",
-											"left": 125,
+											"left": 117,
 											"top": 386,
 											"width": 188.05419921875,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 120,
+									"left": 112,
 									"top": 351,
 									"width": 198.05419921875,
 									"height": 53
 								}
 							],
 							"font": "Arial;13;0",
-							"left": 120,
+							"left": 112,
 							"top": 328,
 							"width": 198.05419921875,
 							"height": 76,
@@ -637,7 +637,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 357,
+									"left": 353,
 									"top": 374,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -671,7 +671,7 @@
 										"$ref": "AAAAAAF1bETW5a/1ISs="
 									},
 									"font": "Arial;13;0",
-									"left": 342,
+									"left": 334,
 									"top": 373,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -689,7 +689,7 @@
 								"$ref": "AAAAAAF1bEOJg6+6f8Q="
 							},
 							"lineStyle": 2,
-							"points": "400:365;317:365",
+							"points": "400:365;309:365",
 							"nameLabel": {
 								"$ref": "AAAAAAF1bETW5a/2LcA="
 							},
@@ -821,7 +821,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFLzntJC6EktCk="
 					},
-					"name": "grocery_store",
+					"name": "store",
 					"ownedElements": [
 						{
 							"_type": "ERDRelationship",
