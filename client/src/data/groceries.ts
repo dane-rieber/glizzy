@@ -1,3 +1,6 @@
+import Axios from "axios";
+import globals from "./globals";
+
 export interface Grocery {
     id: number;
     name: string;

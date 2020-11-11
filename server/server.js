@@ -30,6 +30,13 @@ AUTHORIZATION
 
 var tokens = []; // super secure token system (v1.0)
 
+// Keep the gates wide open
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', '*');
+    next();
+});
+
 app.post('/login', (req, res) => {
     var username = req.body.username;
     var password = req.body.password;

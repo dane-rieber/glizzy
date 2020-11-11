@@ -18,6 +18,7 @@ import {
 import './Home.css';
 import { getGroceries, Grocery } from '../data/groceries';
 import GroceryListItem from '../components/GroceryListItem';
+import globals from '../data/globals';
 
 const Home: React.FC = () => {
 
@@ -30,6 +31,17 @@ const Home: React.FC = () => {
     setMessages(msgs);
     const gs = getGroceries();
     setGroceries(gs);
+    globals.api.get('/lists', {headers: {Authorization: globals.token}})
+        .then(res => {
+            globals.api.get(`/list/${res.data[0]['id']}`, {headers: {Authorization: globals.token}})
+              .then(res2 => {
+                setGroceries((res2.data['groceries']));
+              })
+            
+        })
+        .catch(error => {
+
+        });
   });
 
   const refresh = (e: CustomEvent) => {

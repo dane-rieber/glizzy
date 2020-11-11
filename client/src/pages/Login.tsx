@@ -6,15 +6,18 @@ import { personCircle } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { IonItem, IonLabel, IonInput, IonButton, IonIcon, IonAlert } from '@ionic/react';
 
+import globals from '../data/globals';
+
 function validateEmail(email: string) {
     return true;
 }
 const Login: React.FC = () => {
   const history = useHistory();
-  const [email, setEmail] = useState<string>("eve.holt@reqres.in");
-  const [password, setPassword] = useState<string>("cityslicka");
+  const [email, setEmail] = useState<string>("glizzygatherer");
+  const [password, setPassword] = useState<string>("letmein");
   const [iserror, setIserror] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
+  const [token, setToken] = useState<string>('');
   const handleLogin = () => {
     if (!email) {
         setMessage("Please enter a valid email");
@@ -33,20 +36,14 @@ const Login: React.FC = () => {
         return;
     }
 
-    const loginData = {
-        "email": email,
-        "password": password
-    }
-
-    const api = axios.create({
-        baseURL: `https://localhost3000/`
-    })
-    api.post("/login", loginData)
+    globals.api.post('/login', {username: email, password: password}, {headers: {'content-type': 'application/json'}})
         .then(res=> {             
-            setMessage("Created an account!");
+            globals.token = res.data['auth_token'];
+            history.push('/home');
          })
          .catch(error=>{
             setMessage("Auth failure! Please create an account");
+            console.log(error);
             setIserror(true)
          })
   };
