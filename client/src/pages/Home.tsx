@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Message, getMessages } from '../data/messages';
 import {
   IonButton,
-  IonToggle,
   IonContent,
   IonHeader,
   IonInput,
@@ -101,10 +100,6 @@ const Home: React.FC = () => {
         </IonList>
         
         <IonButton color="primary" expand="full" href="#" onClick={add_item_onClick}>Add Item</IonButton>
-
-        <IonButton color="tertiary" href="#" onClick={settings_onClick}>Settings</IonButton>
-
-        <IonButton color="light" shape="round" href="#" onClick={light_dark_button_onClick}>Light/Dark Mode Toggle</IonButton>
       </IonContent>
     </IonPage>
   );
