@@ -6,26 +6,35 @@ import { personCircle } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { IonItem, IonLabel, IonInput, IonButton, IonIcon, IonAlert } from '@ionic/react';
 
+<<<<<<< Updated upstream
 import globals from '../data/globals';
 
 function validateEmail(email: string) {
+=======
+function validateUsername(username: string) {
+>>>>>>> Stashed changes
     return true;
 }
 const Login: React.FC = () => {
   const history = useHistory();
+<<<<<<< Updated upstream
   const [email, setEmail] = useState<string>("glizzygatherer");
   const [password, setPassword] = useState<string>("letmein");
+=======
+  const [username, setUsername] = useState<string>("example_username");
+  const [password, setPassword] = useState<string>("cityslicka");
+>>>>>>> Stashed changes
   const [iserror, setIserror] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [token, setToken] = useState<string>('');
   const handleLogin = () => {
-    if (!email) {
-        setMessage("Please enter a valid email");
+    if (!username) {
+        setMessage("Please enter a valid username");
         setIserror(true);
         return;
     }
-    if (validateEmail(email) === false) {
-        setMessage("Your email is invalid");
+    if (validateUsername(username) === false) {
+        setMessage("Your username is invalid");
         setIserror(true);
         return;
     }
@@ -36,7 +45,19 @@ const Login: React.FC = () => {
         return;
     }
 
+<<<<<<< Updated upstream
     globals.api.post('/login', {username: email, password: password}, {headers: {'content-type': 'application/json'}})
+=======
+    const loginData = {
+        "username": username,
+        "password": password
+    }
+
+    const api = axios.create({
+        baseURL: `https://localhost3000/`
+    })
+    api.post("/login", loginData)
+>>>>>>> Stashed changes
         .then(res=> {             
             globals.token = res.data['auth_token'];
             history.push('/home');
@@ -80,11 +101,11 @@ const Login: React.FC = () => {
           <IonRow>
             <IonCol>
             <IonItem>
-            <IonLabel position="floating"> Email</IonLabel>
+            <IonLabel position="floating"> Username</IonLabel>
             <IonInput
-                type="email"
-                value={email}
-                onIonChange={(e) => setEmail(e.detail.value!)}
+                type="text"
+                value={username}
+                onIonChange={(e) => setUsername(e.detail.value!)}
                 >
             </IonInput>
             </IonItem>
