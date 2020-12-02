@@ -4,47 +4,14 @@ import globals from "./globals";
 export interface Grocery {
     id: number;
     name: string;
-    price: number;
+    price: string;
     quantity: number;
+    store_id: number;
     store: string;
+    active: boolean;
 }
 
 const groceries: Grocery[] = [
-    {
-        id: 0,
-        name: "Eggs",
-        price: 10.00,
-        quantity: 3,
-        store: "Target"
-    },
-    {
-        id: 1,
-        name: "Pancakes",
-        price: 10.00,
-        quantity: 3,
-        store: "Walmart"
-    },
-    {
-        id: 2,
-        name: "Bacon",
-        price: 10.00,
-        quantity: 3,
-        store: "Target"
-    },
-    {
-        id: 3,
-        name: "Water",
-        price: 10.00,
-        quantity: 3,
-        store: "Target"
-    },
-    {
-        id: 4,
-        name: "Tuna",
-        price: 10.00,
-        quantity: 3,
-        store: "Target"
-    }
 ];
 
 export const getGroceries = () => groceries;

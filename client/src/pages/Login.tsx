@@ -6,24 +6,17 @@ import { useHistory } from "react-router-dom";
 import { IonItem, IonLabel, IonInput, IonButton, IonIcon, IonAlert } from '@ionic/react';
 import globals from '../data/globals';
 
-function validateUsername(username: string) {
-    return true;
-}
 const Login: React.FC = () => {
   const history = useHistory();
-  const [username, setUsername] = useState<string>("example_username");
-  const [password, setPassword] = useState<string>("cityslicka");
+  const [username, setUsername] = useState<string>("glizzygatherer");
+  const [password, setPassword] = useState<string>("letmein");
   const [iserror, setIserror] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [token, setToken] = useState<string>('');
+
   const handleLogin = () => {
     if (!username) {
         setMessage("Please enter a valid username");
-        setIserror(true);
-        return;
-    }
-    if (validateUsername(username) === false) {
-        setMessage("Your username is invalid");
         setIserror(true);
         return;
     }
@@ -40,7 +33,7 @@ const Login: React.FC = () => {
             history.push('/home');
          })
          .catch(error=>{
-            setMessage("Auth failure! Please create an account");
+            setMessage("Incorrect username or password.");
             console.log(error);
             setIserror(true)
          })

@@ -34,6 +34,7 @@ var tokens = []; // super secure token system (v1.0)
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
+    res.header('Access-Control-Allow-Methods', '*');
     next();
 });
 
@@ -211,7 +212,7 @@ app.post('/list/:id/add', (req, res) => {
                 queryFields += ',price';
                 queryValues += `,'${price}'`;
             }
-            if (active) {
+            if (active != null) {
                 queryFields += ',active';
                 queryValues += `,${active}`;
             }
@@ -298,7 +299,7 @@ app.patch('/grocery/:id', (req, res) => {
             if (quantity) query += `quantity=${quantity},`;
             if (store_id) query += `store_id=${store_id},`;
             if (price) query += `price='${price}',`;
-            if (active) query += `active=${active}`;
+            if (active != null) query += `active=${active}`;
 
             if (query === '') {
                 res.status(400).json({ message: 'Request body did not contain information to update' });
@@ -316,6 +317,24 @@ app.patch('/grocery/:id', (req, res) => {
         })
         .catch(err => sendError(err, res))
 })
+
+app.delete('/grocery/:id', (req, res) => {
+    var token = get_token(req);
+    if (!token) {
+        res.status(401).json({ status: 'Unauthorized', message: 'Auth token is invalid' });
+        return;
+    }
+
+    var grocery_id = req.params.id;
+    if (!grocery_id) {
+        res.status(400).json({ message: 'Please specify a grocery id as a url parameter' });
+        return;
+    }
+
+    db.none(`delete from grocery where id = ${grocery_id};`)
+        .then(() => res.status(200).json({ message: 'Deleted grocery item'}))
+        .catch(err => sendError(err, res));
+});
 
 /*
 

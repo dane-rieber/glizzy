@@ -1,6 +1,7 @@
 ion-item {
   --padding-start: 0;
   --inner-padding-end: 0;
+  width: 100%;
 }
 
 ion-label {
@@ -11,11 +12,21 @@ ion-label {
 ion-item h2 {
   font-weight: 600;
   margin: 0;
-  padding-left: 10px;
 }
 
-ion-item h3 {
-  padding-left: 10px;
+ion-checkbox {
+  margin-left: 20px;
+  margin-right: 15px;
+  width: 23px;
+  height: 20px;
+}
+
+.outer {
+  z-index: -1;
+}
+
+.inner {
+  z-index: 100;
 }
 
 ion-item p {

@@ -140,3 +140,7 @@ body.dark {
   
     --ion-card-background: #1e1e1e;
   }
+
+ion-label {
+  padding-left: 10px;
+}

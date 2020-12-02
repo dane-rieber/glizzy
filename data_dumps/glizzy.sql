@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.4 (Ubuntu 12.4-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.4 (Ubuntu 12.4-0ubuntu0.20.04.1)
+-- Dumped from database version 12.5 (Ubuntu 12.5-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.5 (Ubuntu 12.5-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -222,6 +222,7 @@ INSERT INTO public.glizzy_user (id, username, password) VALUES (1, 'glizzygather
 INSERT INTO public.glizzy_user (id, username, password) VALUES (2, 'dane', 'secret');
 INSERT INTO public.glizzy_user (id, username, password) VALUES (3, 'kevin', 'kevinrocks');
 INSERT INTO public.glizzy_user (id, username, password) VALUES (4, 'bruh27', 'password');
+INSERT INTO public.glizzy_user (id, username, password) VALUES (5, 'newtestuser', '1234');
 
 
 --
@@ -235,17 +236,23 @@ INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id
 INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (5, 'Frozen Corn Dogs', 1, 4, '$7.00', true, 2);
 INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (6, 'White Claws', 2, 5, '$20.00', true, 2);
 INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (7, 'White Claws', 200, 1, '$19.00', true, 6);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (8, 'White Claws', 1, 1, '$19.00', true, 1);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (16, 'Butter', 1, 1, '$2.50', true, 7);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (17, 'Doritos', 3, 2, '$3.29', true, 7);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (19, 'Mac n Cheese', 5, 1, '$1.49', true, 7);
+INSERT INTO public.grocery (id, name, quantity, store_id, price, active, list_id) VALUES (18, 'Frozen Pizza', 1, 5, '$9.99', false, 7);
 
 
 --
 -- Data for Name: list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.list (id, name, user_id) VALUES (1, 'The First List', 1);
 INSERT INTO public.list (id, name, user_id) VALUES (2, 'Danes List', 2);
 INSERT INTO public.list (id, name, user_id) VALUES (3, 'General List', 3);
 INSERT INTO public.list (id, name, user_id) VALUES (5, 'Danes Second List', 2);
 INSERT INTO public.list (id, name, user_id) VALUES (6, 'Test List', 4);
+INSERT INTO public.list (id, name, user_id) VALUES (7, 'Bruh List', 1);
+INSERT INTO public.list (id, name, user_id) VALUES (1, 'The First List', 1);
 
 
 --
@@ -263,14 +270,14 @@ INSERT INTO public.store (id, name) VALUES (5, 'King Soopers');
 -- Name: glizzy_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.glizzy_user_id_seq', 4, true);
+SELECT pg_catalog.setval('public.glizzy_user_id_seq', 5, true);
 
 
 --
 -- Name: grocery_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.grocery_id_seq', 7, true);
+SELECT pg_catalog.setval('public.grocery_id_seq', 20, true);
 
 
 --
@@ -284,7 +291,7 @@ SELECT pg_catalog.setval('public.grocery_store_id_seq', 5, true);
 -- Name: list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.list_id_seq', 6, true);
+SELECT pg_catalog.setval('public.list_id_seq', 7, true);
 
 
 --
