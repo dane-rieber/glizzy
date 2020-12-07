@@ -1,0 +1,4 @@
+- Include a README in your repository:
+    - Describe repo organization/structure 
+    - Describe how to build/run/test code 
+    - If using a Continuous Integration system, provide a link to the CI status page 
