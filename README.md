@@ -24,6 +24,10 @@
 4. To dump existing, run `./dump_db.sh`
 5. Note: you may need to `chmod a+x` the files before running them
 
+# CI
+
+https://csci-3308-fa20-202-4.atlassian.net/
+
 # TEST CASES
 
 User Acceptance Tests:
