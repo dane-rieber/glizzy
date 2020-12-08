@@ -36,19 +36,13 @@ User Acceptance Tests:
 - Users should be able to login to their account and access the appropriate list using a username and password.
 
 Acceptance Criteria for above User Cases:
-- A user can only submit a form to create an account if mandatory fields are completed.
--- Username
--- Password
+- A user can only submit a form to create an account if mandatory fields are completed: Username, Password
 
 - User should be able to login to their account
--- User information should be stored in the ‘user’ table in the ‘glizzy’ database
--- Information should be matched with the ‘user’ table in order to validate information
+  1. User information should be stored in the ‘user’ table in the ‘glizzy’ database
+  2. Information should be matched with the ‘user’ table in order to validate information
 
 - User should be able to see item information
 -- Item information should be stored in the ‘grocery’ table in the glizzy database
 -- Item information should be retrieved from the database and shown on screen
--- Item information should include:
---- Name
---- Price
---- Store
---- Quantity
+-- Item information should include: Name, Price, Store, Quantity
